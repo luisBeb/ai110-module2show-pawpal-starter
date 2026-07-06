@@ -26,11 +26,11 @@ Your final app should:
 
 ### Setup
 
-\```bash
+```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-\```
+```
 
 ### Suggested workflow
 
@@ -42,43 +42,36 @@ pip install -r requirements.txt
 6. Connect your logic to the Streamlit UI in `app.py`.
 7. Refine UML so it matches what you actually built.
 
-## 🖥️ Sample Output
-
-\```
+## Sample Output
 🐾 Today's Schedule:
-----------------------------------------
 🔲 08:00 — Morning walk (30 min) [high] - Biscuit
 🔲 09:00 — Feeding (10 min) [high] - Biscuit
 🔲 09:00 — Feeding (5 min) [high] - Mochi
 🔲 14:00 — Grooming (15 min) [low] - Mochi
 🔲 18:00 — Evening walk (30 min) [medium] - Biscuit
-
 ⚠️ Conflicts Detected:
 ⚠️ Conflict at 09:00: 'Feeding' and 'Feeding'
-\```
 
-## 🧪 Testing PawPal+
+## Testing PawPal+
 
-\```bash
+```bash
 # Run the full test suite:
 python -m pytest
 
 # Run with coverage:
 pytest --cov
-\```
+```
 
 Sample test output:
-
-\```
-platform win32 -- Python 3.14.0, pytest-9.1.1
+platform win32 -- Python 3.14.0, pytest-9.1.1, pluggy-1.6.0
 collected 4 items
+tests/test_pawpal.py::test_mark_done_changes_status PASSED    [ 25%]
+tests/test_pawpal.py::test_add_task_increases_count PASSED    [ 50%]
+tests/test_pawpal.py::test_sort_by_time PASSED                [ 75%]
+tests/test_pawpal.py::test_conflict_detection PASSED          [100%]
+4 passed in 0.04s
 
-tests\test_pawpal.py ....  [100%]
-
-4 passed in 0.51s
-\```
-
-## 📐 Smarter Scheduling
+## Smarter Scheduling
 
 | Feature | Method(s) | Notes |
 |---------|-----------|-------|
@@ -87,7 +80,7 @@ tests\test_pawpal.py ....  [100%]
 | Conflict handling | `Scheduler.detect_conflicts()` | Flags tasks scheduled at the exact same time |
 | Recurring tasks | `Task.mark_done()` | Advances due_date by 1 day (daily) or 7 days (weekly) |
 
-## 📸 Demo Walkthrough
+## Demo Walkthrough
 
 1. Enter your name and email in the Owner & Pet Info section.
 2. Enter your pet's name, species, and age, then click **Save Owner & Pet**.
