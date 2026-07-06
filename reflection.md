@@ -21,13 +21,16 @@ I designed four classes:
 
 **a. Constraints and priorities**
 
-- What constraints does your scheduler consider (for example: time, priority, preferences)?
-- How did you decide which constraints mattered most?
+The scheduler considers three constraints:
+- **Time**: tasks are sorted by their HH:MM scheduled time using `sort_by_time()`
+- **Priority**: tasks are labeled low, medium, or high to help the owner know what matters most
+- **Conflicts**: the scheduler detects if two tasks are scheduled at the exact same time using `detect_conflicts()`
+
+I prioritized time-based sorting first because a daily schedule needs to be chronological to be useful.
 
 **b. Tradeoffs**
 
-- Describe one tradeoff your scheduler makes.
-- Why is that tradeoff reasonable for this scenario?
+One tradeoff is that conflict detection only checks for exact time matches, not overlapping durations. For example, a 30-minute task at 08:00 and a task at 08:15 would not be flagged as a conflict even though they overlap. This keeps the logic simple and readable, but a more complete system would calculate end times and check for overlaps.
 
 ---
 
