@@ -4,8 +4,11 @@
 
 **a. Initial design**
 
-- Briefly describe your initial UML design.
-- What classes did you include, and what responsibilities did you assign to each?
+I designed four classes:
+- **Owner**: holds the owner's name and email, and a list of their pets. Can add pets and retrieve them.
+- **Pet**: holds the pet's name, species, and age, and a reference to its owner.
+- **Task**: represents a care task (walk, feeding, etc.) with a title, duration, priority, due date, and a recurring flag. Can mark itself done and check if it's due today.
+- **Scheduler**: holds a list of tasks and handles adding tasks, retrieving today's tasks, sorting by priority, and detecting conflicts.
 
 **b. Design changes**
 
