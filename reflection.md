@@ -4,16 +4,11 @@
 
 **a. Initial design**
 
-I designed four classes:
-- **Owner**: holds the owner's name and email, and a list of their pets. Can add pets and retrieve them.
-- **Pet**: holds the pet's name, species, and age, and a reference to its owner.
-- **Task**: represents a care task (walk, feeding, etc.) with a title, duration, priority, due date, and a recurring flag. Can mark itself done and check if it's due today.
-- **Scheduler**: holds a list of tasks and handles adding tasks, retrieving today's tasks, sorting by priority, and detecting conflicts.
+I designed four classes: Owner, Pet, Task, and Scheduler. Owner holds the owner's name and email and manages a list of pets. Pet stores the animal's name, species, and age, and holds a list of tasks. Task represents a single care activity with a title, duration, priority, scheduled time, and a recurring flag. Scheduler is the brain — it retrieves all tasks from the owner's pets, sorts them by time, filters them, and detects conflicts.
 
 **b. Design changes**
 
-- Did your design change during implementation?
-- If yes, describe at least one change and why you made it.
+During implementation I added a `time` field (HH:MM string) to Task instead of relying solely on `due_date`. This made sorting and conflict detection much simpler since comparing time strings directly is straightforward in Python.
 
 ---
 
@@ -21,16 +16,11 @@ I designed four classes:
 
 **a. Constraints and priorities**
 
-The scheduler considers three constraints:
-- **Time**: tasks are sorted by their HH:MM scheduled time using `sort_by_time()`
-- **Priority**: tasks are labeled low, medium, or high to help the owner know what matters most
-- **Conflicts**: the scheduler detects if two tasks are scheduled at the exact same time using `detect_conflicts()`
-
-I prioritized time-based sorting first because a daily schedule needs to be chronological to be useful.
+The scheduler considers three constraints: time (tasks are sorted chronologically by HH:MM), priority (labeled low, medium, or high so the owner knows what matters most), and conflicts (two tasks at the exact same time are flagged). I prioritized time-based sorting first because a daily schedule needs to be chronological to be useful.
 
 **b. Tradeoffs**
 
-One tradeoff is that conflict detection only checks for exact time matches, not overlapping durations. For example, a 30-minute task at 08:00 and a task at 08:15 would not be flagged as a conflict even though they overlap. This keeps the logic simple and readable, but a more complete system would calculate end times and check for overlaps.
+One tradeoff is that conflict detection only checks for exact time matches, not overlapping durations. A 30-minute task at 08:00 and a task at 08:15 would not be flagged even though they overlap. This keeps the logic simple and readable, but a more complete system would calculate end times and check for overlaps.
 
 ---
 
@@ -38,13 +28,11 @@ One tradeoff is that conflict detection only checks for exact time matches, not 
 
 **a. How you used AI**
 
-- How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
-- What kinds of prompts or questions were most helpful?
+I used AI throughout the project for system design brainstorming, generating class skeletons from UML, implementing scheduling logic, writing pytest test cases, and debugging. The most helpful prompts were specific ones that included context, like sharing the current file and asking for a targeted improvement.
 
 **b. Judgment and verification**
 
-- Describe one moment where you did not accept an AI suggestion as-is.
-- How did you evaluate or verify what the AI suggested?
+When AI generated the conflict detection logic, I reviewed it carefully and verified it worked by intentionally adding two tasks at the same time in main.py and confirming the warning printed correctly. I also ran all four pytest tests to verify behavior before committing.
 
 ---
 
@@ -52,13 +40,11 @@ One tradeoff is that conflict detection only checks for exact time matches, not 
 
 **a. What you tested**
 
-- What behaviors did you test?
-- Why were these tests important?
+I tested four behaviors: marking a task done changes its status, adding a task to a pet increases the task count, sorting tasks returns them in chronological order, and conflict detection flags duplicate times.
 
 **b. Confidence**
 
-- How confident are you that your scheduler works correctly?
-- What edge cases would you test next if you had more time?
+I am confident the core scheduling logic works correctly for the tested cases. Edge cases I would test next include a pet with no tasks, tasks with identical titles at different times, and weekly recurring tasks rolling over correctly.
 
 ---
 
@@ -66,12 +52,12 @@ One tradeoff is that conflict detection only checks for exact time matches, not 
 
 **a. What went well**
 
-- What part of this project are you most satisfied with?
+The CLI-first workflow worked really well. Running main.py before connecting to Streamlit let me verify the logic was correct before worrying about the UI.
 
 **b. What you would improve**
 
-- If you had another iteration, what would you improve or redesign?
+I would improve conflict detection to check for overlapping durations rather than just exact time matches. I would also add the ability to edit or delete tasks from the Streamlit UI.
 
 **c. Key takeaway**
 
-- What is one important thing you learned about designing systems or working with AI on this project?
+The most important thing I learned is that designing the system on paper first (UML) before writing any code makes implementation much smoother. AI is a powerful collaborator but the human still needs to review and verify every suggestion.
